@@ -241,6 +241,35 @@ All figures and CSV files will be regenerated and saved to `results/`.
 
 ---
 
+## 🌐 Cloud Deployment Options
+
+EveWatch is architected to be 100% cloud-ready and can be deployed with zero code changes:
+
+### Option A: Streamlit Community Cloud (Recommended — Free & 1-Click)
+1. Navigate to [share.streamlit.io](https://share.streamlit.io).
+2. Connect your GitHub account and click **New app**.
+3. Select:
+   - **Repository:** `Ayush-web28/EveWatch`
+   - **Branch:** `main`
+   - **Main file path:** `app.py`
+4. Click **Deploy!** The application will build from `requirements.txt` and go live with a public URL in under 2 minutes.
+
+### Option B: Docker Container (Render / Railway / AWS / Self-Hosted)
+Build and run the production Docker image locally or in cloud container services:
+```bash
+# Build Docker image
+docker build -t evewatch:latest .
+
+# Run container on port 8501
+docker run -p 8501:8501 evewatch:latest
+```
+Access the application at `http://localhost:8501`.
+
+### Option C: Hugging Face Spaces
+Create a new Space with the **Streamlit** SDK, set the repository remote to Hugging Face, and push to deploy instantly.
+
+---
+
 ## ⚠️ Honest Limitations
 
 1. **Simulation-Based Link:** While physical gate and readout errors are modeled using calibrated IBM Quantum hardware noise models (`FakeBrisbane`), the optical quantum channel is modeled via depolarizing Kraus channels in software rather than physical fiber-optic lasers and single-photon avalanche diodes (SPADs).
