@@ -24,7 +24,9 @@ Thumbs.db
 
 # Secrets & Environment variables
 .env
-.env.*
+.env.local
+.env.*.local
+!.env.example
 *.token
 ibm_token.txt
 
