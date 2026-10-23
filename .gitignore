@@ -16,6 +16,9 @@ htmlcov/
 frontend/node_modules/
 frontend/.oxc/
 
+# Generated PDFs (Keep local, do not push)
+*.pdf
+
 # IDE and OS
 .vscode/
 .idea/
