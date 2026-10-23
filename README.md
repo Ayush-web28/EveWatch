@@ -73,7 +73,28 @@ The BB84 protocol operates across four distinct stages:
 
 ```
 EveWatch/
-├── bb84/                           # Core Pure Quantum Library
+├── backend/                        # High-Performance FastAPI Application Layer
+│   ├── main.py                     # REST endpoints, CORS, static mounting & health checks
+│   ├── schemas.py                  # Pydantic v2 schemas for simulation & OTP messaging
+│   └── services.py                 # Qiskit simulator orchestrator & CSV dataset parsers
+├── frontend/                       # Modern Cinematic Quantum Web Application
+│   ├── src/
+│   │   ├── components/             # Editorial UI components
+│   │   │   ├── Navbar.tsx          # Glassmorphic header & backend health monitor
+│   │   │   ├── Hero.tsx            # Cinematic hero with canvas quantum stream fallback
+│   │   │   ├── QuantumCanvas.tsx   # Interactive 60fps wave interference & photon canvas
+│   │   │   ├── QuantumLab.tsx      # Section A: Interactive QKD lab simulator
+│   │   │   ├── ProtocolVisualizer.tsx # Section B: Alice-Eve-Bob single-photon visualizer
+│   │   │   ├── NoiseVsEveHeatmap.tsx  # Section C: 2D error surface & 11% cutoff inspector
+│   │   │   ├── ExperimentsHub.tsx  # Section D: Empirical CSV research benchmarks hub
+│   │   │   ├── SecureMessaging.tsx # Section E: One-Time Pad encryption & decryption
+│   │   │   ├── HowItWorks.tsx      # Section F: Mathematical foundations of BB84
+│   │   │   └── Footer.tsx          # Academic citations & license
+│   │   ├── api/client.ts           # Typed API client for FastAPI backend
+│   │   └── types/quantum.ts        # TypeScript models mirroring Python schemas
+│   ├── vite.config.ts              # Vite configuration with Tailwind v4 & proxy
+│   └── package.json                # React 19, TypeScript, Lucide React, Tailwind
+├── bb84/                           # Core Pure Quantum Library (Source of Truth)
 │   ├── __init__.py                 # Clean public package interface
 │   ├── protocol.py                 # Pure BB84 protocol, circuits, sifting, QBER
 │   ├── eve.py                      # Intercept-resend eavesdropper (fraction f)
@@ -88,10 +109,9 @@ EveWatch/
 │   ├── exp5_key_rate.py            # Secret key yield & Shor-Preskill rate vs noise
 │   ├── hardware_comparison.py      # Real IBM hardware runner / FakeBrisbane fallback
 │   └── run_all_experiments.py      # Master batch runner for all experiments
-├── app.py                          # Streamlit Interactive Dashboard
-├── notebooks/
-│   └── demo.ipynb                  # Clean Jupyter walkthrough for judges
-├── tests/                          # Automated Pytest Suite (18 tests)
+├── app.py                          # Streamlit Interactive Dashboard (Legacy reference)
+├── tests/                          # Automated Pytest Suite (24 tests)
+│   ├── test_api.py                 # FastAPI endpoints, simulation, OTP & CSV tests
 │   ├── test_protocol.py            # Sanity tests, sifting, sampling validation
 │   ├── test_eve.py                 # 25% QBER theoretical scaling tests
 │   ├── test_noise.py               # Channel noise & fake provider tests
@@ -104,13 +124,9 @@ EveWatch/
 │   ├── exp4_detection_analysis.png & .csv
 │   ├── exp5_key_rate.png & .csv
 │   └── hardware_comparison.png & .csv
-├── presentation/                   # Technical Presentation Deck
-│   ├── EveWatch.pptx               # 13-slide PowerPoint submission
-│   └── build_deck.py               # python-pptx automated presentation builder
-├── conftest.py                     # Test runner configuration
-├── requirements.txt                # Strictly pinned dependency manifest
-├── .gitignore                      # Git exclusion rules
-└── README.md                       # Comprehensive documentation
+├── render.yaml                     # Render Blueprints infrastructure manifest
+├── Dockerfile                      # Multi-stage production container build
+└── requirements.txt                # Strictly pinned dependency manifest
 ```
 
 ---
@@ -241,32 +257,50 @@ All figures and CSV files will be regenerated and saved to `results/`.
 
 ---
 
-## 🌐 Cloud Deployment Options
+## 🌐 Deployment Options
 
-EveWatch is architected to be 100% cloud-ready and can be deployed with zero code changes:
+EveWatch 2.0 is architected for seamless cloud deployment:
 
-### Option A: Streamlit Community Cloud (Recommended — Free & 1-Click)
-1. Navigate to [share.streamlit.io](https://share.streamlit.io).
-2. Connect your GitHub account and click **New app**.
-3. Select:
-   - **Repository:** `Ayush-web28/EveWatch`
-   - **Branch:** `main`
-   - **Main file path:** `app.py`
-4. Click **Deploy!** The application will build from `requirements.txt` and go live with a public URL in under 2 minutes.
+### Option A: Render (Recommended — Free & 1-Click)
 
-### Option B: Docker Container (Render / Railway / AWS / Self-Hosted)
-Build and run the production Docker image locally or in cloud container services:
+The repository includes a ready-to-use [`render.yaml`](render.yaml) Blueprint:
+
+1. Create a free account on [Render](https://render.com).
+2. Connect your GitHub account and click **New > Blueprint**.
+3. Select `Ayush-web28/EveWatch`.
+4. Render automatically parses `render.yaml`, installs dependencies, builds the React frontend, and launches the FastAPI Web Service.
+5. (Optional) In the Render dashboard under **Environment**, set `IBM_QUANTUM_TOKEN` if you wish to run circuits on physical IBM Quantum superconducting processors.
+
+**Local Production Run:**
 ```bash
-# Build Docker image
-docker build -t evewatch:latest .
+# Build React frontend
+cd frontend
+npm install
+npm run build
+cd ..
 
-# Run container on port 8501
-docker run -p 8501:8501 evewatch:latest
+# Launch production server
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
-Access the application at `http://localhost:8501`.
+Then visit `http://localhost:8000`.
 
-### Option C: Hugging Face Spaces
-Create a new Space with the **Streamlit** SDK, set the repository remote to Hugging Face, and push to deploy instantly.
+### Option B: Multi-Stage Docker Container (Self-Hosted / AWS / GCP)
+
+Build and run the production container:
+```bash
+# Build image
+docker build -t evewatch:2.0 .
+
+# Run container
+docker run -p 8000:8000 evewatch:2.0
+```
+Access the application at `http://localhost:8000` (API docs at `http://localhost:8000/docs`).
+
+### Option C: Legacy Streamlit App (Reference)
+The original Streamlit application remains fully functional for backward compatibility:
+```bash
+streamlit run app.py
+```
 
 ---
 

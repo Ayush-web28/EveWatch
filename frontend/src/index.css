@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-base: #05070D;
+    --bg-surface: #0B1020;
+    --bg-card: #0F172A;
+    --border-subtle: #1E293B;
+    --accent-cyan: #00E5FF;
+    --accent-violet: #8B5CF6;
+    --text-main: #F4F7FF;
+    --text-muted: #9AA6BC;
+  }
+
+  body {
+    background-color: #05070D;
+    color: #F4F7FF;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom glow utility classes */
+.glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(0, 229, 255, 0.25);
+}
+
+.glow-violet {
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.25);
+}
+
+.glow-alert {
+  box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.3);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+  background: rgba(11, 16, 32, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 229, 255, 0.15);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #05070D;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00E5FF;
+}

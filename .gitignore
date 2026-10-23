@@ -12,6 +12,10 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Node & Frontend
+frontend/node_modules/
+frontend/.oxc/
+
 # IDE and OS
 .vscode/
 .idea/
